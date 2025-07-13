@@ -1,0 +1,19 @@
+# Environment variables
+.env
+
+# Build outputs
+/target/
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*~

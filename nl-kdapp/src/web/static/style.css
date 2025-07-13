@@ -215,6 +215,38 @@ footer a:hover {
     text-decoration: underline;
 }
 
+.code-section {
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+.toggle-code-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.generated-code {
+    background: #f8f8f8;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 20px;
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.generated-code code {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 @media (max-width: 600px) {
     .prompt-input-wrapper {
         flex-direction: column;

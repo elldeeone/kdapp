@@ -19,6 +19,7 @@ pub struct GenerateResponse {
     pub episode_id: Option<String>,
     pub share_link: Option<String>,
     pub error: Option<String>,
+    pub generated_code: Option<String>,
 }
 
 pub async fn generate_episode(
@@ -26,7 +27,7 @@ pub async fn generate_episode(
     Json(request): Json<GenerateRequest>,
 ) -> Result<Json<GenerateResponse>, StatusCode> {
     // Process the prompt
-    let game_request = match state.nlp_processor.process(&request.prompt) {
+    let game_request = match state.nlp_processor.process(&request.prompt).await {
         Ok(req) => req,
         Err(e) => {
             return Ok(Json(GenerateResponse {
@@ -34,6 +35,7 @@ pub async fn generate_episode(
                 episode_id: None,
                 share_link: None,
                 error: Some(e.to_string()),
+                generated_code: None,
             }));
         }
     };
@@ -47,6 +49,7 @@ pub async fn generate_episode(
                 episode_id: None,
                 share_link: None,
                 error: Some(e.to_string()),
+                generated_code: None,
             }));
         }
     };
@@ -60,6 +63,7 @@ pub async fn generate_episode(
                 episode_id: None,
                 share_link: None,
                 error: Some(e.to_string()),
+                generated_code: None,
             }));
         }
     };
@@ -69,6 +73,7 @@ pub async fn generate_episode(
         episode_id: Some(deployment.episode_id),
         share_link: Some(deployment.share_link),
         error: None,
+        generated_code: Some(generated_code.episode_code.clone()),
     }))
 }
 

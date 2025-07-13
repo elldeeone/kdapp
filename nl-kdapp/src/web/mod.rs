@@ -14,7 +14,7 @@ use std::sync::Arc;
 use tower_http::services::ServeDir;
 use tower_http::cors::CorsLayer;
 
-use crate::{nlp, generation, deployment, session};
+use crate::{nlp, generation, deployment, session, wallet};
 
 pub mod handlers;
 pub mod websocket;
@@ -25,6 +25,7 @@ pub struct AppState {
     pub code_generator: Arc<generation::Generator>,
     pub deployment_manager: Arc<deployment::Manager>,
     pub session_manager: Arc<session::Manager>,
+    pub server_wallet: Option<Arc<wallet::ServerWallet>>,
 }
 
 pub async fn start_server(
@@ -33,12 +34,14 @@ pub async fn start_server(
     code_generator: generation::Generator,
     deployment_manager: deployment::Manager,
     session_manager: session::Manager,
+    server_wallet: Option<wallet::ServerWallet>,
 ) -> Result<()> {
     let state = AppState {
         nlp_processor: Arc::new(nlp_processor),
         code_generator: Arc::new(code_generator),
         deployment_manager: Arc::new(deployment_manager),
         session_manager: Arc::new(session_manager),
+        server_wallet: server_wallet.map(Arc::new),
     };
 
     let app = Router::new()

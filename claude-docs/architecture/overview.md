@@ -52,22 +52,22 @@ Unlike traditional smart contract development, our system:
 - Accepts natural language descriptions
 - Generates complete, working code
 - Handles complex game logic automatically
-- Produces kdapp-compatible Episodes
+- Produces kdapp-compatible Episodes with proper rollback support
 
 ### 2. Hybrid Architecture (Inspired by kasperience)
 Following patterns from kaspa-auth:
-- On-chain: Episode state and commands
-- Off-chain: AI processing, web interface
+- On-chain: Episode commands and sequencing
+- Off-chain: AI processing, Episode execution, web interface
 - Real-time: WebSocket for instant updates
-- Scalable: Handles multiple concurrent Episodes
+- Ephemeral: Currently session-based (persistence roadmap in progress)
 
 ### 3. Template-Based Generation
-Pre-built patterns for common use cases:
-- Turn-based games (chess, checkers, Go)
-- Card games (poker, blackjack)
-- Betting/prediction markets
-- Auction systems
-- Voting mechanisms
+Pre-built patterns for session-based experiences:
+- Quick games (tic-tac-toe, chess, checkers)
+- Short-duration votes and polls
+- Time-limited auctions
+- Real-time competitions
+- All with proper reorg handling via rollback
 
 ### 4. Zero-Knowledge Barrier
 Users need:
@@ -75,6 +75,13 @@ Users need:
 - No blockchain knowledge
 - No Rust expertise
 - Just an idea and a web browser
+
+### 5. Evolution-Ready Architecture
+Built to grow with kdapp's persistence roadmap:
+- Current: Ephemeral, session-based Episodes
+- Stage 1: Short-term sync capabilities
+- Stage 2: Full reorg protection with persistence
+- Stage 3: Complete historical archival
 
 ## User Journey
 

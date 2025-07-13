@@ -25,7 +25,7 @@ impl Deployer {
         
         Ok(EpisodeInfo {
             id: format!("ep_{}", id),
-            share_link: format!("https://play.kdapp.io/ep_{}", id),
+            share_link: format!("https://kdapp.fun/play/{}", id),
         })
     }
 }

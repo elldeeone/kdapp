@@ -8,10 +8,12 @@ This document outlines the implementation plan for the first phase of the Natura
 
 A successful POC will:
 1. Accept the prompt "Make me a tic-tac-toe game"
-2. Generate a working kdapp Episode implementation
-3. Deploy it to Kaspa testnet
-4. Provide a shareable link for playing
+2. Generate a working kdapp Episode implementation with proper rollback
+3. Run the Episode locally on kdapp.fun servers
+4. Provide a shareable link for playing (kdapp.fun/play/{id})
 5. Support real-time gameplay via web interface
+6. Handle commands via Kaspa blockchain transactions
+7. Demonstrate proper reorg handling with rollback
 
 ## Timeline
 

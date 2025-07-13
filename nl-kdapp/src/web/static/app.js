@@ -16,6 +16,8 @@ const copyBtn = document.getElementById('copy-btn');
 const playBtn = document.getElementById('play-btn');
 const tryAgainBtn = document.getElementById('try-again-btn');
 const exampleBtns = document.querySelectorAll('.example-btn');
+const toggleCodeBtn = document.getElementById('toggle-code-btn');
+const generatedCode = document.getElementById('generated-code');
 
 // Event Listeners
 generateBtn.addEventListener('click', generateEpisode);
@@ -26,6 +28,7 @@ promptInput.addEventListener('keypress', (e) => {
 copyBtn.addEventListener('click', copyShareLink);
 playBtn.addEventListener('click', playGame);
 tryAgainBtn.addEventListener('click', resetUI);
+toggleCodeBtn.addEventListener('click', toggleCode);
 
 exampleBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -65,7 +68,7 @@ async function generateEpisode() {
         const data = await response.json();
 
         if (data.status === 'success') {
-            showResult(data.episode_id, data.share_link);
+            showResult(data.episode_id, data.share_link, data.generated_code);
         } else {
             showError(data.error || 'Failed to generate Episode');
         }
@@ -81,10 +84,18 @@ function updateStatus(message) {
     statusMessage.textContent = message;
 }
 
-function showResult(id, link) {
+function showResult(id, link, code) {
     hideAllSections();
     episodeId.textContent = id;
     shareLink.value = link;
+    
+    if (code) {
+        generatedCode.querySelector('code').textContent = code;
+        toggleCodeBtn.style.display = 'block';
+    } else {
+        toggleCodeBtn.style.display = 'none';
+    }
+    
     resultSection.classList.remove('hidden');
 }
 
@@ -124,6 +135,16 @@ function playGame() {
     const link = shareLink.value;
     if (link) {
         window.open(link, '_blank');
+    }
+}
+
+function toggleCode() {
+    if (generatedCode.classList.contains('hidden')) {
+        generatedCode.classList.remove('hidden');
+        toggleCodeBtn.textContent = 'Hide Code';
+    } else {
+        generatedCode.classList.add('hidden');
+        toggleCodeBtn.textContent = 'Show Code';
     }
 }
 

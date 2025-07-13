@@ -10,6 +10,13 @@ license = "ISC"
 # Core kdapp framework
 kdapp = { path = "../kdapp" }
 
+# Kaspa dependencies (for wallet and transactions)
+kaspa-consensus-core = "0.13"
+kaspa-wallet-keys = "0.13"
+kaspa-addresses = "0.13"
+kaspa-txscript = "0.13"
+kaspa-rpc-core = "0.13"
+
 # Web framework (following kasperience's pattern)
 axum = { version = "0.7", features = ["ws", "macros"] }
 tokio = { version = "1.35", features = ["full"] }
@@ -56,6 +63,9 @@ regex = "1.10"
 
 # Random number generation
 rand = "0.8"
+
+# Environment variables
+dotenv = "0.15"
 
 # Process management (for compilation)
 tokio-process = "0.2"
