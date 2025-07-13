@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Language kdapp Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Natural Language kdapp Interface</h1>
+            <p class="subtitle">Create blockchain games with simple text prompts</p>
+        </header>
+
+        <main>
+            <section class="prompt-section">
+                <h2>What would you like to create?</h2>
+                <div class="prompt-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="prompt-input" 
+                        placeholder="e.g., Make me a tic-tac-toe game"
+                        class="prompt-input"
+                    >
+                    <button id="generate-btn" class="generate-btn">Generate</button>
+                </div>
+                <div class="examples">
+                    <p>Try these examples:</p>
+                    <button class="example-btn" data-prompt="Make me a tic-tac-toe game">Tic-Tac-Toe</button>
+                    <button class="example-btn" data-prompt="Create a chess game">Chess</button>
+                    <button class="example-btn" data-prompt="Build a poker game for 6 players">Poker</button>
+                </div>
+            </section>
+
+            <section id="status-section" class="status-section hidden">
+                <h3>Generation Status</h3>
+                <div class="status-content">
+                    <div class="spinner"></div>
+                    <p id="status-message">Processing your request...</p>
+                </div>
+            </section>
+
+            <section id="result-section" class="result-section hidden">
+                <h3>Your Game is Ready!</h3>
+                <div class="result-content">
+                    <p>Episode ID: <code id="episode-id"></code></p>
+                    <p>Share this link to play:</p>
+                    <div class="share-link-wrapper">
+                        <input type="text" id="share-link" readonly class="share-link">
+                        <button id="copy-btn" class="copy-btn">Copy</button>
+                    </div>
+                    <button id="play-btn" class="play-btn">Play Now</button>
+                </div>
+            </section>
+
+            <section id="error-section" class="error-section hidden">
+                <h3>Oops! Something went wrong</h3>
+                <p id="error-message"></p>
+                <button id="try-again-btn" class="try-again-btn">Try Again</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built with kdapp framework | <a href="https://github.com/elldeeone/kdapp" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
