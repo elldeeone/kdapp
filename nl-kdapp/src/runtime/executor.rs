@@ -1,7 +1,6 @@
 //! Episode executor for running kdapp Episodes on the server
 
-use anyhow::{Result, Context};
-use kdapp::{Episode, EpisodeEventHandler};
+use anyhow::{Result};
 use std::sync::Arc;
 use tokio::sync::{mpsc, RwLock};
 use super::EpisodeMetadata;
@@ -97,17 +96,4 @@ impl EpisodeExecutor {
 #[allow(dead_code)]
 struct DynamicEpisodeLoader {
     // Will compile and load Episodes at runtime
-}
-
-#[allow(dead_code)]
-impl DynamicEpisodeLoader {
-    fn compile_episode(code: &str) -> Result<Vec<u8>> {
-        // Compile Rust code to WASM or dynamic library
-        todo!("Implement dynamic compilation")
-    }
-    
-    fn load_episode(compiled: &[u8]) -> Result<Box<dyn Episode>> {
-        // Load compiled Episode
-        todo!("Implement dynamic loading")
-    }
 }

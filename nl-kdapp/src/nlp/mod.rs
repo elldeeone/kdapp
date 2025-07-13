@@ -28,6 +28,18 @@ pub enum GameType {
     Custom { name: String },
 }
 
+impl ToString for GameType {
+    fn to_string(&self) -> String {
+        match self {
+            GameType::TicTacToe => "TicTacToe".to_string(),
+            GameType::Chess => "Chess".to_string(),
+            GameType::Checkers => "Checkers".to_string(),
+            GameType::Poker { variant } => format!("Poker_{:?}", variant),
+            GameType::Custom { name } => name.clone(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum PokerVariant {
     TexasHoldem,

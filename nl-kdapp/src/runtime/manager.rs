@@ -4,8 +4,8 @@ use anyhow::{Result, bail};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::{RwLock, mpsc};
-use super::{EpisodeExecutor, EpisodeStorage, EpisodeMetadata, EpisodeEvent};
-use super::executor::RunningEpisode;
+use super::{EpisodeExecutor, EpisodeStorage, EpisodeMetadata};
+use super::executor::{RunningEpisode, EpisodeEvent};
 
 /// Manages multiple concurrent Episodes
 pub struct EpisodeManager {
@@ -71,27 +71,35 @@ impl EpisodeManager {
         episode_id: &str,
         command: Vec<u8>,
     ) -> Result<()> {
-        let episode = {
+        // Check if exists and not expired
+        {
             let episodes = self.episodes.read().await;
-            episodes.get(episode_id).cloned()
-                .ok_or_else(|| anyhow::anyhow!("Episode {} not found", episode_id))?
-        };
-        
-        // Check if expired
-        if episode.metadata.is_expired() {
-            bail!("Episode {} has expired", episode_id);
+            let episode = episodes.get(episode_id)
+                .ok_or_else(|| anyhow::anyhow!("Episode {} not found", episode_id))?;
+            
+            if episode.metadata.is_expired() {
+                bail!("Episode {} has expired", episode_id);
+            }
         }
+        
+        // Get state reference and execute
+        let state_ref = {
+            let episodes = self.episodes.read().await;
+            episodes.get(episode_id)
+                .ok_or_else(|| anyhow::anyhow!("Episode {} not found", episode_id))?
+                .state.clone()
+        };
         
         // Execute command
         self.executor.execute_command(
             episode_id,
             command,
-            &episode.state,
+            &state_ref,
             &self.event_channel,
         ).await?;
         
         // Save updated state
-        let state = episode.state.read().await;
+        let state = state_ref.read().await;
         self.storage.save_state(episode_id, &state)?;
         
         Ok(())

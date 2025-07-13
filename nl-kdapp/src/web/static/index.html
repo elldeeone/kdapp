@@ -9,8 +9,12 @@
 <body>
     <div class="container">
         <header>
-            <h1>Natural Language kdapp Interface</h1>
-            <p class="subtitle">Create blockchain games with simple text prompts</p>
+            <h1>kdapp.fun</h1>
+            <p class="subtitle">Create blockchain applications instantly with natural language</p>
+            <div class="testnet-banner">
+                <span class="badge">🧪 Testnet</span>
+                <span>Free to use • 3-day Episodes • No wallet needed</span>
+            </div>
         </header>
 
         <main>
@@ -28,8 +32,9 @@
                 <div class="examples">
                     <p>Try these examples:</p>
                     <button class="example-btn" data-prompt="Make me a tic-tac-toe game">Tic-Tac-Toe</button>
-                    <button class="example-btn" data-prompt="Create a chess game">Chess</button>
-                    <button class="example-btn" data-prompt="Build a poker game for 6 players">Poker</button>
+                    <button class="example-btn" data-prompt="Create a voting app for team lunch choices">Voting App</button>
+                    <button class="example-btn" data-prompt="Build a 24-hour auction for my NFT">Auction</button>
+                    <button class="example-btn" data-prompt="Set up a prediction market for tomorrow's weather">Prediction Market</button>
                 </div>
             </section>
 
@@ -42,15 +47,16 @@
             </section>
 
             <section id="result-section" class="result-section hidden">
-                <h3>Your Game is Ready!</h3>
+                <h3>Your Application is Ready!</h3>
                 <div class="result-content">
                     <p>Episode ID: <code id="episode-id"></code></p>
-                    <p>Share this link to play:</p>
+                    <p class="expiration-notice">⏰ Active for 3 days on Kaspa testnet</p>
+                    <p>Share this link:</p>
                     <div class="share-link-wrapper">
                         <input type="text" id="share-link" readonly class="share-link">
                         <button id="copy-btn" class="copy-btn">Copy</button>
                     </div>
-                    <button id="play-btn" class="play-btn">Play Now</button>
+                    <button id="play-btn" class="play-btn">Open App</button>
                     
                     <div class="code-section">
                         <h4>Generated Episode Code:</h4>
@@ -68,7 +74,15 @@
         </main>
 
         <footer>
-            <p>Built with kdapp framework | <a href="https://github.com/elldeeone/kdapp" target="_blank">GitHub</a></p>
+            <p>Built with kdapp framework | <a href="https://github.com/elldeeone/kdapp" target="_blank">GitHub</a> | <a href="#" onclick="showInfo(); return false;">How it works</a></p>
+            <div class="info-section hidden" id="info-section">
+                <h3>About kdapp.fun</h3>
+                <p><strong>Instant Creation:</strong> Type what you want, get a working blockchain app in seconds</p>
+                <p><strong>Ephemeral Episodes:</strong> Apps run for 3 days (Kaspa's pruning window)</p>
+                <p><strong>Free on Testnet:</strong> No wallet needed - we handle the transactions</p>
+                <p><strong>Coming Soon:</strong> Persistent apps, mainnet support, wallet integration</p>
+                <button onclick="hideInfo()">Close</button>
+            </div>
         </footer>
     </div>
 

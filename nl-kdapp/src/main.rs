@@ -16,6 +16,9 @@ mod session;
 mod utils;
 mod wallet;
 mod runtime;
+mod bridge;
+mod episodes;
+mod kdapp_integration;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -116,6 +119,56 @@ async fn main() -> Result<()> {
     } else {
         None
     };
+    
+    // Initialize test player wallets if configured
+    let (player1_wallet, player2_wallet) = if args.network.contains("testnet") {
+        match wallet::init_test_player_wallets().await {
+            Ok((p1, p2)) => {
+                if let Some(ref w1) = p1 {
+                    info!("Player 1 wallet initialized: {}", w1.address);
+                }
+                if let Some(ref w2) = p2 {
+                    info!("Player 2 wallet initialized: {}", w2.address);
+                }
+                (p1, p2)
+            }
+            Err(e) => {
+                warn!("Failed to initialize test player wallets: {}", e);
+                (None, None)
+            }
+        }
+    } else {
+        (None, None)
+    };
+    
+    // Initialize Episode runtime
+    let episode_manager = runtime::EpisodeManager::with_storage(
+        Box::new(runtime::EphemeralStorage::new())
+    );
+    info!("Episode runtime initialized (ephemeral storage)");
+    
+    // Initialize kdapp integration
+    let server_keypair = server_wallet.as_ref().map(|w| w.keypair());
+    let player1_keypair = player1_wallet.as_ref().map(|w| w.keypair());
+    let player2_keypair = player2_wallet.as_ref().map(|w| w.keypair());
+    
+    let kdapp_manager = kdapp_integration::KdappManager::new(
+        args.network.clone(),
+        args.wrpc_url.clone(),
+        server_keypair,
+        player1_keypair,
+        player2_keypair,
+    );
+    
+    // Start the kdapp proxy if we have a server wallet
+    if server_wallet.is_some() {
+        match kdapp_manager.start_proxy().await {
+            Ok(_) => info!("kdapp proxy started successfully"),
+            Err(e) => warn!("Failed to start kdapp proxy: {}", e),
+        }
+    } else {
+        warn!("kdapp proxy not started - server wallet required");
+    }
 
     // Start web server
     web::start_server(
@@ -125,6 +178,10 @@ async fn main() -> Result<()> {
         deployment_manager,
         session_manager,
         server_wallet,
+        player1_wallet,
+        player2_wallet,
+        episode_manager,
+        Some(kdapp_manager),
     ).await?;
 
     Ok(())

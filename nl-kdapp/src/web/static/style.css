@@ -247,6 +247,228 @@ footer a:hover {
     line-height: 1.5;
 }
 
+/* Testnet banner */
+.testnet-banner {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 5px;
+    color: #856404;
+}
+
+.badge {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Expiration notice */
+.expiration-notice {
+    background: #d1ecf1;
+    color: #0c5460;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+/* Info section */
+.info-section {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 500px;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.info-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.info-section p {
+    margin-bottom: 10px;
+}
+
+.info-section button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* App container styles */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.app-header {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.expiration-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.countdown {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.participant-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.share-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.share-btn:active {
+    transform: translateY(0);
+}
+
+/* App content */
+.app-content {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    min-height: 400px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Game-specific styles */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    margin: 20px auto;
+    width: fit-content;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cell:hover:not(.filled) {
+    background: #f0f0f0;
+}
+
+.cell.filled {
+    cursor: not-allowed;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Voting styles */
+.voting-options {
+    margin: 20px 0;
+}
+
+.voting-options button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.voting-options button:hover {
+    border-color: var(--primary-color);
+    background: #f0f8ff;
+}
+
+/* Auction styles */
+.current-bid {
+    font-size: 24px;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f0f8ff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.bid-form {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.bid-form input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.bid-form button {
+    padding: 10px 30px;
+    background: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Expiration warning */
+.expiration-warning {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 15px 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
 @media (max-width: 600px) {
     .prompt-input-wrapper {
         flex-direction: column;
@@ -258,5 +480,14 @@ footer a:hover {
     
     section {
         padding: 20px;
+    }
+    
+    .app-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .app-header > div {
+        margin: 10px 0;
     }
 }
